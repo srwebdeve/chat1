@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- HTML -->
+<div id="chat">
+  <div id="chat-log"></div>
+  <input type="text" id="message-input">
+  <button id="send-button">Send</button>
+</div>
+
+<script>
+    // JavaScript
+const chatLog = document.getElementById("chat-log");
+const messageInput = document.getElementById("message-input");
+const sendButton = document.getElementById("send-button");
+
+sendButton.addEventListener("click", () => {
+  const message = messageInput.value;
+  if (message.trim() !== "") {
+    sendMessage("User", message);
+    messageInput.value = "";
+    receiveMessage("Bot", "Thanks for your message!");
+  }
+});
+
+function sendMessage(sender, message) {
+  const senderClass = sender === "User" ? "user" : "bot";
+  const messageElement = document.createElement("div");
+  messageElement.classList.add(senderClass);
+  messageElement.innerHTML = `<span class="sender">${sender}: </span><span class="message">${message}</span>`;
+  chatLog.appendChild(messageElement);
+}
+
+function receiveMessage(sender, message) {
+  setTimeout(() => {
+    sendMessage(sender, message);
+  }, 1000);
+}
+
+</script>
+</body>
+</html>
